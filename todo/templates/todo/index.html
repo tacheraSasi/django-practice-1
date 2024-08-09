@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django ToDo app</title>
+</head>
+<body>
+    <span>
+        <a href="">Sign Up</a> 
+        <a href="">Sign In</a> 
+        <a href="">Logout</a> 
+        <hr>
+    </span>
+    <h1>Django toDo</h1>
+    <button id="add-btn">Create ToDo</button>
+    {% if number_of_todos > 0 %}
+        <ul>
+            {% for todo in todo_items %}
+                <li>
+                    <p><b>{{todo.id}}--{{todo.title}}</b></p>
+                    <p>{{todo.desc}}</p>
+                    <span>
+                        <a href="{% url 'update-todo' todo.id%}">update</a>
+                        <a href="{% url 'delete-todo' todo.id%}">delete</a>
+                    </span>
+                    <small>{{todo.created}}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+     <p><b>No todos Found.</b></p>
+    {% endif %}
+    <script>let addUrl = "{% url 'add-todo'%}" ;</script>
+    <script src="{% static 'js/todo.js' %}"></script>
+</body>
+</html>
